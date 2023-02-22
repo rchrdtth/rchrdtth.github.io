@@ -16,6 +16,7 @@
         body {
             margin: 0;
             padding: 0;
+            -webkit-overflow-scrolling: touch;
         }
 
         .move {
@@ -106,6 +107,7 @@
                 this.style.left = x;
                 this.style.top = y;
 
+                return false;
             }
 
             function imgMoveEnd() {
