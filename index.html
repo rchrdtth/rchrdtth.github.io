@@ -44,7 +44,7 @@
 
 
 <body style="overflow: hidden">
-<div class="move">
+    <div class="move">
         <img src="https://i.imgur.com/1BsHG8O.png" alt="" class="no-select">
     </div>
 
@@ -60,6 +60,12 @@
 
         //-------------------------------------
 
+        document.body.addEventListener('touchmove', function (event) {
+            event.preventDefault();
+        }, {
+            passive: false,
+            useCapture: false
+        });
 
         const move = document.querySelector('.move');
         let idleAnimateInterval, idleAnimateTimeout;
@@ -132,7 +138,7 @@
         }
 
         function prepareIdle() {
-            if(!useIdle) return;
+            if (!useIdle) return;
 
             clearTimeout(idleAnimateTimeout);
             idleAnimateTimeout = setTimeout(() => {
@@ -146,7 +152,7 @@
         }
 
         function cancelIdle() {
-            if(!useIdle) return;
+            if (!useIdle) return;
 
             clearInterval(idleAnimateInterval);
             clearTimeout(idleAnimateTimeout);
