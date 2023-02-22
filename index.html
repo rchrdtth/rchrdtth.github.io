@@ -95,6 +95,8 @@
             function imgMoved(e) {
                 cancelIdle();
 
+                e.preventDefault(); // prevent ios overscroll 
+
                 const clientX = (isTouch ? e.targetTouches[0] : e).clientX
                 const clientY = (isTouch ? e.targetTouches[0] : e).clientY
 
