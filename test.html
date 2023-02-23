@@ -26,6 +26,14 @@
             cursor: move;
             position: absolute;
         }
+        .log {
+            position: absolute;
+            top:0;
+            left: 0;
+            color: brown;
+            font-weight: 600;
+            background: black;
+        }
 
         .fullimg {
             height: 700px;
@@ -45,6 +53,7 @@
         <div class="move">
             <img src="https://i.imgur.com/1BsHG8O.png" alt="" class="no-select fullimg">
         </div>
+        <div class="log"></div>
     
         <img src="https://i.imgur.com/y35RTT9.jpg" alt="" class="no-select fullimg">
     </div>
@@ -54,7 +63,14 @@
     <script>
 
         const move = document.querySelector('.move');
+        const log = document.querySelector('.log');
         move.addEventListener('touchstart', imgMoveInit);
+
+        function div(text) {
+            const div = document.createElement('div');
+            div.innerText = text;
+            return div;
+        }
 
         function imgMoveInit(e) {
             const isTouch = e.type === 'touchstart';
@@ -69,6 +85,8 @@
                 clickOffsetX = e.offsetX
                 clickOffsetY = e.offsetY
             }
+
+            log.appendChild(div(`Start with offset: ${clickOffsetX},  ${clickOffsetY}`));
 
             // move.addEventListener('mousemove', imgMoved);
             move.addEventListener('touchmove', imgMoved);
@@ -85,11 +103,14 @@
                 const x = clientX - clickOffsetX + 'px';
                 const y = clientY - clickOffsetY + 'px';
 
+                log.appendChild(div(`Move to: ${clientX},  ${clientY}`));
+
                 this.style.left = x;
                 this.style.top = y;
             }
 
             function imgMoveEnd() {
+                log.appendChild(div(`END`));
                 // move.removeEventListener('mousemove', imgMoved);
                 move.removeEventListener('touchmove', imgMoved);
             }
