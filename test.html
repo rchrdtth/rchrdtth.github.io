@@ -58,17 +58,41 @@
 
         function imgMoveInit(e) {
             const isTouch = e.type === 'touchstart';
-            
-            e.preventDefault(); // prevent ios overscroll 
 
-            const clientX = (isTouch ? e.targetTouches[0] : e).clientX
-            const clientY = (isTouch ? e.targetTouches[0] : e).clientY
+            let clickOffsetX;
+            let clickOffsetY;
+            if (isTouch) {
+                const bcr = e.target.getBoundingClientRect();
+                clickOffsetX = e.targetTouches[0].clientX - bcr.x;
+                clickOffsetY = e.targetTouches[0].clientY - bcr.y;
+            } else {
+                clickOffsetX = e.offsetX
+                clickOffsetY = e.offsetY
+            }
 
-            const x = clientX + 'px';
-            const y = clientY + 'px';
+            // move.addEventListener('mousemove', imgMoved);
+            move.addEventListener('touchmove', imgMoved);
 
-            this.style.left = x;
-            this.style.top = y;
+            // move.addEventListener('mouseup', imgMoveEnd);
+            // move.addEventListener('mouseout', imgMoveEnd);
+            move.addEventListener('touchend', imgMoveEnd);
+            move.addEventListener('touchcancel', imgMoveEnd);
+
+            function imgMoved(e) {
+                const clientX = (isTouch ? e.targetTouches[0] : e).clientX
+                const clientY = (isTouch ? e.targetTouches[0] : e).clientY
+
+                const x = clientX - clickOffsetX + 'px';
+                const y = clientY - clickOffsetY + 'px';
+
+                this.style.left = x;
+                this.style.top = y;
+            }
+
+            function imgMoveEnd() {
+                // move.removeEventListener('mousemove', imgMoved);
+                move.removeEventListener('touchmove', imgMoved);
+            }
         }
 
     </script>
