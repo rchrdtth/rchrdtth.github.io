@@ -80,8 +80,13 @@
             return div;
         }
 
+        function logout(str) {
+            console.log(str);
+            log.appendChild(div(str));
+        }
+
         function imgMoveInit(e) {
-            log.appendChild(div(`E: ${e.type}, touches: ${e.targetTouches.length}, x: ${e.targetTouches[0].clientX}, y: ${e.targetTouches[0].clientY}`));
+            logout(`E: ${e.type}, touches: ${e.targetTouches.length}, x: ${e.targetTouches[0].clientX}, y: ${e.targetTouches[0].clientY}`);
 
             const isTouch = e.type === 'touchstart';
 
@@ -91,14 +96,14 @@
             const x = clientX + 'px';
             const y = clientY + 'px';
 
-            log.appendChild(div(`Move to: ${clientX},  ${clientY}`));
+            logout(`Move to: ${clientX},  ${clientY}`);
 
             this.style.left = x;
             this.style.top = y;
 
             if (isTouch) {
                 const bcrt = e.target;
-                log.appendChild(div(`BCR-T: ${bcrt.offsetLeft},  ${bcrt.offsetTop}`));
+                logout(`BCR-T: ${bcrt.offsetLeft},  ${bcrt.offsetTop}`);
             }
 
             move.addEventListener('touchmove', () => {});
