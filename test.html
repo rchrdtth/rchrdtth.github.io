@@ -88,7 +88,16 @@
             this.style.top = y;
 
             if (isTouch) {
-                const bcr = e.targetTouches[0].target.getBoundingClientRect();
+                const bcrt = e.target;
+                log.appendChild(div(`BCR-T: ${bcrt.offsetLeft},  ${bcrt.offsetTop}`));
+
+                const bcrsrc = e.srcElement;
+                log.appendChild(div(`BCR-src: ${bcrsrc.offsetLeft},  ${bcrsrc.offsetTop}`));
+
+                const bcrt0t = e.targetTouches[0].target;
+                log.appendChild(div(`BCR-T0T: ${bcrt0t.offsetLeft},  ${bcrt0t.offsetTop}`));
+
+                const bcr = e.target.getBoundingClientRect();
                 log.appendChild(div(`BCR: ${bcr.x},  ${bcr.y}`));
             }
         }
