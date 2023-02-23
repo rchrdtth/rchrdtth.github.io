@@ -12,8 +12,6 @@
         }
 
         body {
-            overflow: auto;
-            -webkit-overflow-scrolling: touch;
             background-color: gray;
         }
         
@@ -32,15 +30,23 @@
         .fullimg {
             height: 100vh;
         }
+
+        .inner {
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
+            height: 100%;
+        }
     </style>
 </head>
 
 <body>
-    <div class="move">
-        <img src="https://i.imgur.com/1BsHG8O.png" alt="" class="no-select fullimg">
+    <div class="inner">
+        <div class="move">
+            <img src="https://i.imgur.com/1BsHG8O.png" alt="" class="no-select fullimg">
+        </div>
+    
+        <img src="https://i.imgur.com/y35RTT9.jpg" alt="" class="no-select fullimg">
     </div>
-
-    <img src="https://i.imgur.com/y35RTT9.jpg" alt="" class="no-select fullimg">
 </body>
 
 </html>
