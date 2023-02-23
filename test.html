@@ -113,6 +113,8 @@
                 log.appendChild(div(`END`));
                 // move.removeEventListener('mousemove', imgMoved);
                 move.removeEventListener('touchmove', imgMoved);
+                move.removeEventListener('touchend', imgMoveEnd);
+                move.removeEventListener('touchcancel', imgMoveEnd);
             }
         }
 
