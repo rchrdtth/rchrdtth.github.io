@@ -52,6 +52,28 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/inobounce/0.2.1/inobounce.min.js" integrity="sha512-Yqdl0nKSSuorWbQ4S9gPMG4THi/meaKxojlnfsak9isATD+dYT2/e7YLw6GyqR1W5uk9rSmv7v4Uu9keCvbYAQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script>
+
+        const move = document.querySelector('.move');
+        move.addEventListener('touchstart', imgMoveInit);
+
+        function imgMoveInit(e) {
+            const isTouch = e.type === 'touchstart';
+            
+            e.preventDefault(); // prevent ios overscroll 
+
+            const clientX = (isTouch ? e.targetTouches[0] : e).clientX
+            const clientY = (isTouch ? e.targetTouches[0] : e).clientY
+
+            const x = clientX + 'px';
+            const y = clientY + 'px';
+
+            this.style.left = x;
+            this.style.top = y;
+        }
+
+    </script>
+
+    <script>
         document.body.addEventListener('touchmove', function (event) {
             event.preventDefault();
         }, {
