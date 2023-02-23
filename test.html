@@ -1,7 +1,8 @@
 <html>
 
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <style>
         html,
         body {
@@ -14,7 +15,7 @@
         body {
             background-color: gray;
         }
-        
+
         .no-select {
             pointer-events: none;
             user-select: none;
@@ -26,9 +27,10 @@
             cursor: move;
             position: absolute;
         }
+
         .log {
             position: absolute;
-            top:0;
+            top: 0;
             left: 0;
             color: brown;
             font-weight: 600;
@@ -54,16 +56,16 @@
             <img src="https://i.imgur.com/1BsHG8O.png" alt="" class="no-select fullimg">
         </div>
         <div class="log"></div>
-    
+
         <img src="https://i.imgur.com/y35RTT9.jpg" alt="" class="no-select fullimg">
     </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/inobounce/0.2.1/inobounce.min.js" integrity="sha512-Yqdl0nKSSuorWbQ4S9gPMG4THi/meaKxojlnfsak9isATD+dYT2/e7YLw6GyqR1W5uk9rSmv7v4Uu9keCvbYAQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/inobounce/0.2.1/inobounce.min.js"
+        integrity="sha512-Yqdl0nKSSuorWbQ4S9gPMG4THi/meaKxojlnfsak9isATD+dYT2/e7YLw6GyqR1W5uk9rSmv7v4Uu9keCvbYAQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
-
         const move = document.querySelector('.move');
         const log = document.querySelector('.log');
+
         move.addEventListener('touchstart', imgMoveInit);
 
         function div(text) {
@@ -73,52 +75,29 @@
         }
 
         function imgMoveInit(e) {
+            log.appendChild(div(`E: ${e.type}, touches: ${e.targetTouches.length}, x: ${e.targetTouches[0].clientX}, y: ${e.targetTouches[0].clientY}`));
+
             const isTouch = e.type === 'touchstart';
-            
-            let clickOffsetX;
-            let clickOffsetY;
+
+            const clientX = (isTouch ? e.targetTouches[0] : e).clientX;
+            const clientY = (isTouch ? e.targetTouches[0] : e).clientY;
+
+            const x = clientX + 'px';
+            const y = clientY + 'px';
+
+            log.appendChild(div(`Move to: ${clientX},  ${clientY}`));
+
+            this.style.left = x;
+            this.style.top = y;
+
             if (isTouch) {
-                clickOffsetX = e.targetTouches[0].clientX - e.target.offsetLeft;
-                clickOffsetY = e.targetTouches[0].clientY - e.target.offsetTop;
-            } else {
-                clickOffsetX = e.offsetX
-                clickOffsetY = e.offsetY
+                const bcrt = e.target;
+                log.appendChild(div(`BCR-T: ${bcrt.offsetLeft},  ${bcrt.offsetTop}`));
             }
 
-            log.appendChild(div(`Start with offset: ${clickOffsetX},  ${clickOffsetY}`));
-
-            // move.addEventListener('mousemove', imgMoved);
-            this.addEventListener('touchmove', imgMoved);
-
-            // move.addEventListener('mouseup', imgMoveEnd);
-            // move.addEventListener('mouseout', imgMoveEnd);
-            this.addEventListener('touchend', imgMoveEnd);
-            this.addEventListener('touchcancel', imgMoveEnd);
-
-            function imgMoved(e) {
-                const clientX = (isTouch ? e.targetTouches[0] : e).clientX
-                const clientY = (isTouch ? e.targetTouches[0] : e).clientY
-
-                const x = clientX - clickOffsetX + 'px';
-                const y = clientY - clickOffsetY + 'px';
-
-                log.appendChild(div(`Move to: ${clientX},  ${clientY}`));
-
-                this.style.left = x;
-                this.style.top = y;
-            }
-
-            function imgMoveEnd() {
-                log.appendChild(div(`END`));
-                // move.removeEventListener('mousemove', imgMoved);
-                this.removeEventListener('touchmove', imgMoved);
-                this.removeEventListener('touchend', imgMoveEnd);
-                this.removeEventListener('touchcancel', imgMoveEnd);
-            }
+            this.addEventListener('touchmove', () => log.appendChild(div(`MOVE`)));
         }
-
     </script>
-
     <script>
         document.body.addEventListener('touchmove', function (event) {
             event.preventDefault();
