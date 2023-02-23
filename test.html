@@ -73,50 +73,19 @@
         }
 
         function imgMoveInit(e) {
-            log.appendChild(div(`STARTOFALL`));
+            log.appendChild(div(`E: ${e.type}`));
             const isTouch = e.type === 'touchstart';
 
-            let clickOffsetX;
-            let clickOffsetY;
-            if (isTouch) {
-                const bcr = e.target.getBoundingClientRect();
-                clickOffsetX = e.targetTouches[0].clientX - bcr.x;
-                clickOffsetY = e.targetTouches[0].clientY - bcr.y;
-            } else {
-                clickOffsetX = e.offsetX
-                clickOffsetY = e.offsetY
-            }
+            const clientX = (isTouch ? e.targetTouches[0] : e).clientX
+            const clientY = (isTouch ? e.targetTouches[0] : e).clientY
 
-            log.appendChild(div(`Start with offset: ${clickOffsetX},  ${clickOffsetY}`));
+            const x = clientX + 'px';
+            const y = clientY + 'px';
 
-            // move.addEventListener('mousemove', imgMoved);
-            this.addEventListener('touchmove', imgMoved);
+            log.appendChild(div(`Move to: ${clientX},  ${clientY}`));
 
-            // move.addEventListener('mouseup', imgMoveEnd);
-            // move.addEventListener('mouseout', imgMoveEnd);
-            this.addEventListener('touchend', imgMoveEnd);
-            this.addEventListener('touchcancel', imgMoveEnd);
-
-            function imgMoved(e) {
-                const clientX = (isTouch ? e.targetTouches[0] : e).clientX
-                const clientY = (isTouch ? e.targetTouches[0] : e).clientY
-
-                const x = clientX - clickOffsetX + 'px';
-                const y = clientY - clickOffsetY + 'px';
-
-                log.appendChild(div(`Move to: ${clientX},  ${clientY}`));
-
-                this.style.left = x;
-                this.style.top = y;
-            }
-
-            function imgMoveEnd() {
-                log.appendChild(div(`END`));
-                // move.removeEventListener('mousemove', imgMoved);
-                this.removeEventListener('touchmove', imgMoved);
-                this.removeEventListener('touchend', imgMoveEnd);
-                this.removeEventListener('touchcancel', imgMoveEnd);
-            }
+            this.style.left = x;
+            this.style.top = y;
         }
 
     </script>
