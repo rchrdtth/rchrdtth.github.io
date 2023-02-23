@@ -73,6 +73,7 @@
         }
 
         function imgMoveInit(e) {
+            log.appendChild(div(`STARTOFALL`));
             const isTouch = e.type === 'touchstart';
 
             let clickOffsetX;
@@ -89,12 +90,12 @@
             log.appendChild(div(`Start with offset: ${clickOffsetX},  ${clickOffsetY}`));
 
             // move.addEventListener('mousemove', imgMoved);
-            move.addEventListener('touchmove', imgMoved);
+            this.addEventListener('touchmove', imgMoved);
 
             // move.addEventListener('mouseup', imgMoveEnd);
             // move.addEventListener('mouseout', imgMoveEnd);
-            move.addEventListener('touchend', imgMoveEnd);
-            move.addEventListener('touchcancel', imgMoveEnd);
+            this.addEventListener('touchend', imgMoveEnd);
+            this.addEventListener('touchcancel', imgMoveEnd);
 
             function imgMoved(e) {
                 const clientX = (isTouch ? e.targetTouches[0] : e).clientX
@@ -112,9 +113,9 @@
             function imgMoveEnd() {
                 log.appendChild(div(`END`));
                 // move.removeEventListener('mousemove', imgMoved);
-                move.removeEventListener('touchmove', imgMoved);
-                move.removeEventListener('touchend', imgMoveEnd);
-                move.removeEventListener('touchcancel', imgMoveEnd);
+                this.removeEventListener('touchmove', imgMoved);
+                this.removeEventListener('touchend', imgMoveEnd);
+                this.removeEventListener('touchcancel', imgMoveEnd);
             }
         }
 
