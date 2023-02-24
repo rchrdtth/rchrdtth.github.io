@@ -106,7 +106,7 @@
                     logout(`BCR-T: ${bcrt.offsetLeft},  ${bcrt.offsetTop}`);
                 }
 
-                move.addEventListener('touchmove', () => {});
+                e.target.addEventListener('touchmove', () => {});
             } catch (e) {
                 logout(`ERROR: ${JSON.stringify(e.message)}`);
             }
