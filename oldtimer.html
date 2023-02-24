@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>bad boy jail</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/inobounce/0.2.1/inobounce.min.js" integrity="sha512-Yqdl0nKSSuorWbQ4S9gPMG4THi/meaKxojlnfsak9isATD+dYT2/e7YLw6GyqR1W5uk9rSmv7v4Uu9keCvbYAQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+        :root {
+            --animate-length: 600ms;
+        }
+
+        html,
+        body {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            width: 100%;
+
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .move {
+            left: 0;
+            top: 0;
+            cursor: move;
+            position: fixed;
+        }
+
+        .move.animate {
+            transition: left linear 600ms, top linear 600ms;
+            transition: left linear var(--animate-length), top linear var(--animate-length);
+        }
+
+        .no-select {
+            pointer-events: none;
+            user-select: none;
+        }
+
+        img {
+            height: 100vh;
+        }
+    </style>
+</head>
+
+
+<body style="overflow: hidden">
+    <div class="move">
+        <img src="https://i.imgur.com/1BsHG8O.png" alt="" class="no-select">
+    </div>
+
+    <img src="https://i.imgur.com/y35RTT9.jpg" alt="" class="no-select">
+
+    <script>
+        //-------------- CONFIG ---------------
+
+        const useIdle = true;
+        const timeBeforeIdle = 1000; // in ms
+        const idleAnimateLength = 4000; // in ms
+        const timeBetweenIdleAnimates = 10000; // in ms
+
+        //-------------------------------------
+
+        document.body.addEventListener('touchmove', function (event) {
+            event.preventDefault();
+        }, {
+            passive: false,
+            useCapture: false
+        });
+
+        const move = document.querySelector('.move');
+        let idleAnimateInterval, idleAnimateTimeout;
+
+        setTimeout(function () {
+            animateToRandomPos(600);
+            prepareIdle();
+        }, 200);
+
+        move.addEventListener('mousedown', imgMoveInit);
+        move.addEventListener('touchstart', imgMoveInit);
+
+        function imgMoveInit(e) {
+            const isTouch = e.type === 'touchstart';
+
+            let clickOffsetX;
+            let clickOffsetY;
+            if (isTouch) {
+                // const bcr = e.target.getBoundingClientRect();
+                const bcrt = e.target
+                clickOffsetX = e.targetTouches[0].clientX - bcrt.offsetLeft;
+                clickOffsetY = e.targetTouches[0].clientY - bcrt.offsetTop;
+            } else {
+                clickOffsetX = e.offsetX
+                clickOffsetY = e.offsetY
+            }
+
+            move.addEventListener('mousemove', imgMoved);
+            move.addEventListener('touchmove', imgMoved);
+
+            move.addEventListener('mouseup', imgMoveEnd);
+            move.addEventListener('mouseout', imgMoveEnd);
+            move.addEventListener('touchend', imgMoveEnd);
+            move.addEventListener('touchcancel', imgMoveEnd);
+
+            function imgMoved(e) {
+                cancelIdle();
+
+                e.preventDefault(); // prevent ios overscroll 
+
+                const clientX = (isTouch ? e.targetTouches[0] : e).clientX
+                const clientY = (isTouch ? e.targetTouches[0] : e).clientY
+
+                const x = clientX - clickOffsetX + 'px';
+                const y = clientY - clickOffsetY + 'px';
+
+                this.style.left = x;
+                this.style.top = y;
+
+                return false;
+            }
+
+            function imgMoveEnd() {
+                move.removeEventListener('mousemove', imgMoved);
+                move.removeEventListener('touchmove', imgMoved);
+
+                prepareIdle();
+            }
+        }
+
+        function animateToRandomPos(msLength) {
+            const imgWidth = move.clientWidth;
+            const imgHeight = move.clientHeight;
+
+            document.documentElement.style.setProperty('--animate-length', msLength + 'ms');
+            move.classList.add('animate');
+            setTimeout(function () { 
+                move.classList.remove('animate')
+            }, msLength);
+
+            move.style.left = Math.random() * imgWidth - (imgWidth / 2) + 'px';
+            move.style.top = Math.random() * imgHeight - (imgHeight / 2) + 'px';
+        }
+
+        function prepareIdle() {
+            if (!useIdle) return;
+
+            clearTimeout(idleAnimateTimeout);
+            idleAnimateTimeout = setTimeout(function () {
+
+                clearInterval(idleAnimateInterval);
+                idleAnimateInterval = setInterval(function () {
+                    animateToRandomPos(idleAnimateLength);
+                }, timeBetweenIdleAnimates);
+
+            }, timeBeforeIdle);
+        }
+
+        function cancelIdle() {
+            if (!useIdle) return;
+
+            clearInterval(idleAnimateInterval);
+            clearTimeout(idleAnimateTimeout);
+            move.classList.remove('animate');
+        }
+    </script>
+
+</body>
+
+</html>
