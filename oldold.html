@@ -1,41 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title>bad boy jail</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/inobounce/0.2.1/inobounce.min.js"
-        integrity="sha512-Yqdl0nKSSuorWbQ4S9gPMG4THi/meaKxojlnfsak9isATD+dYT2/e7YLw6GyqR1W5uk9rSmv7v4Uu9keCvbYAQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <style>
-        :root {
-            --animate-length: 600ms;
-        }
-
         html,
         body {
             padding: 0;
             margin: 0;
             height: 100%;
             width: 100%;
-
-            overflow: auto;
-            -webkit-overflow-scrolling: touch;
         }
 
-        .move {
-            left: 0;
-            top: 0;
-            cursor: move;
-            position: fixed;
-        }
-
-        .move.animate {
-            transition: left linear 600ms, top linear 600ms;
-            transition: left linear var(--animate-length), top linear var(--animate-length);
+        body {
+            background-color: gray;
         }
 
         .no-select {
@@ -43,19 +21,49 @@
             user-select: none;
         }
 
-        img {
-            height: 100vh;
+        .move {
+            left: 0;
+            top: 0;
+            cursor: move;
+            position: absolute;
+        }
+
+        .log {
+            position: absolute;
+            top: 0;
+            left: 0;
+            color: brown;
+            font-weight: 600;
+            background: black;
+        }
+
+        .fullimg {
+            height: 700px;
+        }
+
+        .inner {
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
+            height: 700px;
+            position: relative;
         }
     </style>
+    <!-- <script data-consolejs-channel="983fab7e-b2cf-c86e-1616-08cb845af6f2" src="https://remotejs.com/agent/agent.js"></script> -->
 </head>
 
+<body>
+    <div class="inner">
+        <div class="move">
+            <img src="https://i.imgur.com/1BsHG8O.png" alt="" class="no-select fullimg">
+        </div>
+        <div class="log"></div>
 
-<body style="overflow: hidden">
-    <div class="move">
-        <img src="https://i.imgur.com/1BsHG8O.png" alt="" class="no-select">
+        <img src="https://i.imgur.com/y35RTT9.jpg" alt="" class="no-select fullimg">
     </div>
-
-    <img src="https://i.imgur.com/y35RTT9.jpg" alt="" class="no-select">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/inobounce/0.2.1/inobounce.min.js"
+        integrity="sha512-Yqdl0nKSSuorWbQ4S9gPMG4THi/meaKxojlnfsak9isATD+dYT2/e7YLw6GyqR1W5uk9rSmv7v4Uu9keCvbYAQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+        </script>
 
     <script>
         //-------------- CONFIG ---------------
@@ -168,15 +176,20 @@
             clearTimeout(idleAnimateTimeout);
             move.classList.remove('animate');
         }
+
     </script>
     <script>
-        document.body.addEventListener('touchmove', function (event) {
-            logout('prevtouchmove');
-            event.preventDefault();
-        }, {
-            passive: false,
-            useCapture: false
-        });
+        try {
+            document.body.addEventListener('touchmove', function (event) {
+                logout('prevtouchmove');
+                event.preventDefault();
+            }, {
+                passive: false,
+                useCapture: false
+            });
+        } catch (e) {
+            logout('ERROR-prev: ' + JSON.stringify(e.message));
+        }
     </script>
 </body>
 
