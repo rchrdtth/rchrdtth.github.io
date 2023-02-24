@@ -179,17 +179,12 @@
 
     </script>
     <script>
-        try {
-            document.body.addEventListener('touchmove', function (event) {
-                logout('prevtouchmove');
-                event.preventDefault();
-            }, {
-                passive: false,
-                useCapture: false
-            });
-        } catch (e) {
-            logout('ERROR-prev: ' + JSON.stringify(e.message));
-        }
+        document.body.addEventListener('touchmove', function (event) {
+            event.preventDefault();
+        }, {
+            passive: false,
+            useCapture: false
+        });
     </script>
 </body>
 
