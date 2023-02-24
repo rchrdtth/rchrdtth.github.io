@@ -73,7 +73,7 @@
         });
 
         const move = document.querySelector('.move');
-        let idleAnimateInterval, idleAnimateTimeout;
+        var idleAnimateInterval, idleAnimateTimeout;
 
         setTimeout(function () {
             animateToRandomPos(600);
@@ -86,8 +86,8 @@
         function imgMoveInit(e) {
             const isTouch = e.type === 'touchstart';
 
-            let clickOffsetX;
-            let clickOffsetY;
+            var clickOffsetX;
+            var clickOffsetY;
             if (isTouch) {
                 // const bcr = e.target.getBoundingClientRect();
                 const bcrt = e.target
