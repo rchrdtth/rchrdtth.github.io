@@ -63,7 +63,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/inobounce/0.2.1/inobounce.min.js"
         integrity="sha512-Yqdl0nKSSuorWbQ4S9gPMG4THi/meaKxojlnfsak9isATD+dYT2/e7YLw6GyqR1W5uk9rSmv7v4Uu9keCvbYAQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer">
-    </script>
+        </script>
 
     <script>
         const log = document.querySelector('.log');
@@ -77,43 +77,37 @@
             console.log(str);
             log.appendChild(div(str));
         }
-    try {
         const move = document.querySelector('.move');
 
         move.addEventListener('touchstart', imgMoveInit);
 
-        
+
 
         function imgMoveInit(e) {
-            try {
-                logout('E: ' + e.type + ', touches: ' + e.targetTouches.length + ', x: ' + e.targetTouches[0].clientX + ', y: ' + e.targetTouches[0].clientY);
+            logout('E: ' + e.type + ', touches: ' + e.targetTouches.length + ', x: ' + e.targetTouches[0].clientX + ', y: ' + e.targetTouches[0].clientY);
 
-                const isTouch = e.type === 'touchstart';
+            const isTouch = e.type === 'touchstart';
 
-                const clientX = (isTouch ? e.targetTouches[0] : e).clientX;
-                const clientY = (isTouch ? e.targetTouches[0] : e).clientY;
+            const clientX = (isTouch ? e.targetTouches[0] : e).clientX;
+            const clientY = (isTouch ? e.targetTouches[0] : e).clientY;
 
-                const x = clientX + 'px';
-                const y = clientY + 'px';
+            const x = clientX + 'px';
+            const y = clientY + 'px';
 
-                logout('Move to: ' + clientX + ',  ' + clientY);
+            logout('Move to: ' + clientX + ',  ' + clientY);
 
-                this.style.left = x;
-                this.style.top = y;
+            this.style.left = x;
+            this.style.top = y;
 
-                if (isTouch) {
-                    const bcrt = e.target;
-                    logout('BCR-T: ' + bcrt.offsetLeft + ',  ' + bcrt.offsetTop);
-                }
-
-                e.target.addEventListener('touchmove', () => {});
-            } catch (e) {
-                logout('ERROR: ' + JSON.stringify(e.message));
+            if (isTouch) {
+                const bcrt = e.target;
+                logout('BCR-T: ' + bcrt.offsetLeft + ',  ' + bcrt.offsetTop);
             }
+
+            e.target.addEventListener('touchmove', () => { });
+
         }
-    }catch(e) {
-        logout('ERROR-A: ' + JSON.stringify(e.message));
-    }
+
     </script>
     <script>
         try {
@@ -124,7 +118,7 @@
                 passive: false,
                 useCapture: false
             });
-        } catch(e) {
+        } catch (e) {
             logout('ERROR-prev: ' + JSON.stringify(e.message));
         }
     </script>
