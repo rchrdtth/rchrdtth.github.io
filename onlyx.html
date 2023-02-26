@@ -81,9 +81,11 @@
         const idleAnimateLength = 4000; // in ms
         const timeBetweenIdleAnimates = 10000; // in ms
 
+        const idleMaxMove = 100; //px +20px
+
         //-------------------------------------
         const screenw = 1024;
-        var dir = 1;
+        var dir = -1;
 
         document.body.addEventListener('touchmove', function (event) {
             event.preventDefault();
@@ -162,7 +164,7 @@
             }, msLength);
 
 
-            const newX = move.style.left + (Math.random() * 600 * dir);
+            const newX = move.offsetLeft + Math.round((Math.random() * idleMaxMove + 20) * dir);
             move.style.left = Math.min(0, Math.max(-imgWidth+screenw, newX)) + 'px';
             dir = dir * -1;
 
