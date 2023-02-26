@@ -105,15 +105,15 @@
             const isTouch = e.type === 'touchstart';
 
             var clickOffsetX;
-            var clickOffsetY;
+            // var clickOffsetY;
             if (isTouch) {
                 // const bcr = e.target.getBoundingClientRect();
                 const bcrt = e.target
                 clickOffsetX = e.targetTouches[0].clientX - bcrt.offsetLeft;
-                clickOffsetY = e.targetTouches[0].clientY - bcrt.offsetTop;
+                // clickOffsetY = e.targetTouches[0].clientY - bcrt.offsetTop;
             } else {
                 clickOffsetX = e.offsetX
-                clickOffsetY = e.offsetY
+                // clickOffsetY = e.offsetY
             }
 
             move.addEventListener('mousemove', imgMoved);
@@ -130,13 +130,13 @@
                 e.preventDefault(); // prevent ios overscroll 
 
                 const clientX = (isTouch ? e.targetTouches[0] : e).clientX
-                const clientY = (isTouch ? e.targetTouches[0] : e).clientY
+                // const clientY = (isTouch ? e.targetTouches[0] : e).clientY
 
                 const x = clientX - clickOffsetX + 'px';
-                const y = clientY - clickOffsetY + 'px';
+                // const y = clientY - clickOffsetY + 'px';
 
                 this.style.left = x;
-                this.style.top = y;
+                // this.style.top = y;
 
                 return false;
             }
@@ -160,7 +160,7 @@
             }, msLength);
 
             move.style.left = Math.random() * imgWidth - (imgWidth / 2) + 'px';
-            move.style.top = Math.random() * imgHeight - (imgHeight / 2) + 'px';
+            // move.style.top = Math.random() * imgHeight - (imgHeight / 2) + 'px';
         }
 
         function prepareIdle() {
