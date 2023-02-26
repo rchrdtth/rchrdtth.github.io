@@ -4,6 +4,10 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <style>
+        :root {
+            --animate-length: 600ms;
+        }
+
         html,
         body {
             padding: 0;
@@ -26,6 +30,11 @@
             top: 0;
             cursor: move;
             position: absolute;
+        }
+
+        .move.animate {
+            transition: left linear 600ms, top linear 600ms;
+            transition: left linear var(--animate-length), top linear var(--animate-length);
         }
 
         .log {
