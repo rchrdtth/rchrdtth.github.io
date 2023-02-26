@@ -65,7 +65,6 @@
         <div class="move">
             <img src="assets/moire_long.png" alt="" class="no-select fullimg">
         </div>
-        <div class="log"></div>
 
         <img src="assets/bg.jpg" alt="" class="no-select fullimg">
     </div>
@@ -162,9 +161,12 @@
                 move.classList.remove('animate')
             }, msLength);
 
+
             const newX = move.style.left + (Math.random() * 600 * dir);
             move.style.left = Math.min(0, Math.max(-imgWidth+screenw, newX)) + 'px';
             dir = dir * -1;
+
+            console.log(move.style.left, newX, -imgWidth+screenw, Math.max(-imgWidth+screenw, newX), Math.min(0, Math.max(-imgWidth+screenw, newX)));
 
             // move.style.left = Math.random() * imgWidth - (imgWidth / 2) + 'px';
             // move.style.top = Math.random() * imgHeight - (imgHeight / 2) + 'px';
