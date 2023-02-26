@@ -83,6 +83,8 @@
         const timeBetweenIdleAnimates = 10000; // in ms
 
         //-------------------------------------
+        const screenw = 1024;
+        var dir = 1;
 
         document.body.addEventListener('touchmove', function (event) {
             event.preventDefault();
@@ -160,7 +162,11 @@
                 move.classList.remove('animate')
             }, msLength);
 
-            move.style.left = Math.random() * imgWidth - (imgWidth / 2) + 'px';
+            const newX = move.style.left + (Math.random() * 600 * dir);
+            move.style.left = Math.min(0, Math.max(-imgWidth+screenw, newX)) + 'px';
+            dir = dir * -1;
+
+            // move.style.left = Math.random() * imgWidth - (imgWidth / 2) + 'px';
             // move.style.top = Math.random() * imgHeight - (imgHeight / 2) + 'px';
         }
 
